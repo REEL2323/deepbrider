@@ -1,6 +1,7 @@
 'use strict'
 const puppeteer = require('puppeteer')
 const fs = require('fs')
+const open = require('open')
 
 const cookiePath = './cookies.json'
 const downloadPath = './'
@@ -46,6 +47,18 @@ const downloadUrl = process.argv[2]
     downloadUrl,
     deepbridApiUrl
   )
-  await console.log(json)
-  // browser.close()
+  if (json.error === 0) {
+    open(json.link, err => {
+      if (err) throw err
+      console.log('The user closed the browser')
+    })
+    await console.log(`Original_Link: ${json.original_link}`)
+    await console.log(`Hoster: ${json.hoster}`)
+    await console.log(`Filename: ${json.filename}`)
+    await console.log(`Size: ${json.size}`)
+    await console.log(`Link: ${json.link}`)
+  } else {
+    await console.log(json)
+  }
+  browser.close()
 })()
