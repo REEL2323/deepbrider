@@ -20,16 +20,16 @@ const uploadSite = 'RapidGator'
 
   await page.goto(sevenUrl)
   await page.waitFor('.mycss-td')
-  const sevenLinks = await page.evaluate(() => {
+  const sevenLinks = await page.evaluate((uploadSite) => {
     let links = []
     let node = document.querySelectorAll('.mycss-td')
     node.forEach(element => {
-      if (element.innerText.includes('Uploaded')) {
+      if (element.innerText.includes(uploadSite)) {
         links.push(element.querySelector('a').href)
       }
     })
     return links
-  })
+  }, uploadSite)
 
   const getSourceLinks = async function() {
     let links = []
