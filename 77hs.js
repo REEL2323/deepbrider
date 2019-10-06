@@ -13,7 +13,7 @@ const uploadSite = 'RapidGator'
 
 !(async () => {
   const browser = await puppeteer.launch({
-    args: ['--no-startup-window','--window-size=0,0','--window-position=5000,5000'],
+    args: ['--window-size=0,0','--window-position=5000,5000'],
     headless: false
   })
   const page = await browser.newPage()
